@@ -6,7 +6,6 @@ using RosSharp.RosBridgeClient;
 
 public class JsonReader : MonoBehaviour
 {
-    private string path;
     [SerializeField] private GameObject[] rosConnectors;
     private GameObject[] robots;
     private RobotData[] robotDatas;
@@ -21,13 +20,13 @@ public class JsonReader : MonoBehaviour
 
     private void Start()
     {
-        path = Pfad.Path;
         robots = new GameObject[rosConnectors.Length];
         for (int i = 0; i < rosConnectors.Length; i++)
         {
             robots[i] = rosConnectors[i].GetComponent<JointStatePatcher>().UrdfRobot.gameObject;
         }
-        string jsonString = File.ReadAllText(path);
+        string jsonString = File.ReadAllText(Pfad.Path);
+        Debug.Log(jsonString);
         robotDatas = JsonHelper.FromJson<RobotData>(jsonString);
         if (robotDatas != null)
         {
@@ -110,7 +109,7 @@ public class JsonReader : MonoBehaviour
                 {
                     throw new InvalidDataException("Keine Rotation bei " + robotData.Name + " angegeben");
                 }
-                robots[index].transform.SetPositionAndRotation(pos, Quaternion.Euler(rot.x, rot.y, rot.z));
+                robots[index].transform.SetPositionAndRotation(pos, Quaternion.Euler(rot));
             }
         } else
         {

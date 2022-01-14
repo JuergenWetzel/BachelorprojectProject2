@@ -59,6 +59,7 @@ public class CamMovement : MonoBehaviour
         {
             cam.transform.position += deltaPos * Time.deltaTime * speed;
             cam.transform.Rotate(deltaRot * Time.deltaTime * speed);
+            cam.transform.rotation = Quaternion.Euler(cam.transform.rotation.eulerAngles.x, cam.transform.rotation.eulerAngles.y, 0);
         }
     }
 
@@ -109,7 +110,7 @@ public class CamMovement : MonoBehaviour
     private void Turn()
     {
         mouseDelta = Mouse.current.delta.ReadValue();
-        deltaRot += new Vector3(mouseDelta.y, mouseDelta.x, 0);
+        deltaRot += new Vector3(mouseDelta.y, -mouseDelta.x, 0);
     }
     private void Zoom()
     {

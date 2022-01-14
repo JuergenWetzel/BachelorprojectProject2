@@ -16,6 +16,39 @@ public class SaveSettings : MonoBehaviour
     private Toggle[] tosGoToRobot;
     [SerializeField] private Slider slSpeed;
 
+    public GuiSettings.ActiveCam ActiveCam
+    {
+        get { return activeCam; }
+    }
+
+    public GameObject Cam
+    {
+        get
+        {
+            switch (activeCam)
+            {
+                case GuiSettings.ActiveCam.Main:
+                    return cam[0].gameObject;
+                case GuiSettings.ActiveCam.TeaLeft:
+                    return cam[1].gameObject;
+                case GuiSettings.ActiveCam.TeaRight:
+                    return cam[2].gameObject;
+                case GuiSettings.ActiveCam.Ted:
+                    return cam[3].gameObject;
+                case GuiSettings.ActiveCam.TimLeft:
+                    return cam[4].gameObject;
+                case GuiSettings.ActiveCam.TimRight:
+                    return cam[5].gameObject;
+                case GuiSettings.ActiveCam.Tod:
+                    return cam[6].gameObject;
+                case GuiSettings.ActiveCam.Tom:
+                    return cam[7].gameObject;
+                default:
+                    throw new MissingReferenceException("Keine aktive Kamera ausgewählt");
+            }
+        }
+    }
+
     private void Start()
     {
         tosActiveCam = toActiveCam.GetComponentsInChildren<Toggle>();
