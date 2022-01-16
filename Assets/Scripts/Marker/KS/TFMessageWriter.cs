@@ -53,7 +53,7 @@ public class TFMessageWriter : MonoBehaviour
         Debug.Log(rotation.eulerAngles);
         ks.transform.rotation = rotation;
         Vector3 camDirection = settings.Cam.transform.position - joint.transform.position;
-        camDirection.x *= 3;
+        //camDirection.x *= 3;
         camDirection = camDirection.normalized;
         ks.transform.position = joint.transform.position + camDirection;
     }
