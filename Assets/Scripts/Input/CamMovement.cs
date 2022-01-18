@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class CamMovement : MonoBehaviour
 {
-    [SerializeField] private GameObject cam;
+    [SerializeField] private Settings settings;
     private enum ActiveState
     {
         Nothing, 
@@ -18,12 +18,6 @@ public class CamMovement : MonoBehaviour
     private ActiveState activeState;
     private Vector3 deltaPos;
     private Vector3 deltaRot; 
-    private float speed;
-    public float Speed
-    {
-        get { return speed; }
-        set { speed = value; }
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -57,9 +51,9 @@ public class CamMovement : MonoBehaviour
         }
         if (activeState != ActiveState.Nothing)
         {
-            cam.transform.position += deltaPos * Time.deltaTime * speed;
-            cam.transform.Rotate(deltaRot * Time.deltaTime * speed);
-            cam.transform.rotation = Quaternion.Euler(cam.transform.rotation.eulerAngles.x, cam.transform.rotation.eulerAngles.y, 0);
+            settings.Camera(GuiSettings.Cam.Main).transform.position += deltaPos * Time.deltaTime * settings.CamSpeed;
+            settings.Camera(GuiSettings.Cam.Main).transform.Rotate(deltaRot * Time.deltaTime * settings.CamSpeed);
+            settings.Camera(GuiSettings.Cam.Main).transform.rotation = Quaternion.Euler(settings.Camera(GuiSettings.Cam.Main).transform.rotation.eulerAngles.x, settings.Camera(GuiSettings.Cam.Main).transform.rotation.eulerAngles.y, 0);
         }
     }
 
@@ -105,7 +99,7 @@ public class CamMovement : MonoBehaviour
 
     private void Move()
     {
-        deltaPos += cam.transform.right * move.x + cam.transform.up * move.y;
+        deltaPos += settings.Camera(GuiSettings.Cam.Main).transform.right * move.x + settings.Camera(GuiSettings.Cam.Main).transform.up * move.y;
     }
     private void Turn()
     {
@@ -115,10 +109,10 @@ public class CamMovement : MonoBehaviour
     private void Zoom()
     {
         mouseDelta = Mouse.current.delta.ReadValue();
-        deltaPos += cam.transform.forward * mouseDelta.y;
+        deltaPos += settings.Camera(GuiSettings.Cam.Main).transform.forward * mouseDelta.y;
     }
     private void ZoomScroll()
     {
-        deltaPos += cam.transform.forward * scroll / 10;
+        deltaPos += settings.Camera(GuiSettings.Cam.Main).transform.forward * scroll / 10;
     }
 }

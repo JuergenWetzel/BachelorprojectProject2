@@ -6,8 +6,7 @@ using RosSharp.RosBridgeClient;
 
 public class JsonReader : MonoBehaviour
 {
-    [SerializeField] private GameObject[] rosConnectors;
-    private GameObject[] robots;
+    [SerializeField] private Settings settings;
     private RobotData[] robotDatas;
 
     private void Awake()
@@ -20,11 +19,6 @@ public class JsonReader : MonoBehaviour
 
     private void Start()
     {
-        robots = new GameObject[rosConnectors.Length];
-        for (int i = 0; i < rosConnectors.Length; i++)
-        {
-            robots[i] = rosConnectors[i].GetComponent<JointStatePatcher>().UrdfRobot.gameObject;
-        }
         string jsonString = File.ReadAllText(Pfad.Path);
         Debug.Log(jsonString);
         robotDatas = JsonHelper.FromJson<RobotData>(jsonString);
@@ -42,10 +36,10 @@ public class JsonReader : MonoBehaviour
                 {
                     nam = robotData.name;
                 }
-                while (robots[index].name != nam)
+                while (settings.Robots[index].name != nam)
                 {
                     index++;
-                    if (index >= robots.Length)
+                    if (index >= settings.Robots.Length)
                     {
                         throw new InvalidDataException("Kein Roboter mit diesem Name: " + robotData.Name);
                     }
@@ -74,13 +68,13 @@ public class JsonReader : MonoBehaviour
                 {
                     throw new InvalidDataException("Kein Port bei " + robotData.Name + " angegeben");
                 }
-                rosConnectors[index].GetComponent<RosConnector>().RosBridgeServerUrl = url;
+                settings.RosConnectors[index].GetComponent<RosConnector>().RosBridgeServerUrl = url;
                 if (robotData.Topic != null)
                 {
-                    rosConnectors[index].GetComponent<JointStateSubscriber>().Topic = robotData.Topic;
+                    settings.RosConnectors[index].GetComponent<JointStateSubscriber>().Topic = robotData.Topic;
                 } else if (robotData.topic != null)
                 {
-                    rosConnectors[index].GetComponent<JointStateSubscriber>().Topic = robotData.topic;
+                    settings.RosConnectors[index].GetComponent<JointStateSubscriber>().Topic = robotData.topic;
                 } else
                 {
                     throw new InvalidDataException("Kein Topic bei " + robotData.Name + " angegeben");
@@ -109,7 +103,7 @@ public class JsonReader : MonoBehaviour
                 {
                     throw new InvalidDataException("Keine Rotation bei " + robotData.Name + " angegeben");
                 }
-                robots[index].transform.SetPositionAndRotation(pos, Quaternion.Euler(rot));
+                settings.Robots[index].transform.SetPositionAndRotation(pos, Quaternion.Euler(rot));
             }
         } else
         {

@@ -3,10 +3,9 @@ using UnityEngine.InputSystem;
 
 public class GuiSettings : MonoBehaviour
 {
-    [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private Settings settings;
     private bool activeGui;
-    [SerializeField] private GameObject gui;
-    public enum ActiveCam
+    public enum Cam
     {
         Main,
         TeaLeft,
@@ -17,7 +16,7 @@ public class GuiSettings : MonoBehaviour
         Tod,
         Tom
     }
-    public enum RobotZoom
+    public enum Robot
     {
         Tea, 
         Ted, 
@@ -31,7 +30,7 @@ public class GuiSettings : MonoBehaviour
     void Start()
     {
         activeGui = false;
-        gui.SetActive(activeGui);
+        settings.Gui.SetActive(activeGui);
     }
 
     public void OnOpenGui()
@@ -39,13 +38,13 @@ public class GuiSettings : MonoBehaviour
         activeGui = !activeGui;
         if (activeGui)
         {
-            gui.SetActive(true);
-            playerInput.SwitchCurrentActionMap("Gui");
+            settings.Gui.SetActive(true);
+            settings.PlayerInput.SwitchCurrentActionMap("Gui");
         }
         else
         {
-            gui.SetActive(false);
-            playerInput.SwitchCurrentActionMap("Steuerung");
+            settings.Gui.SetActive(false);
+            settings.PlayerInput.SwitchCurrentActionMap("Steuerung");
         }
     }
 

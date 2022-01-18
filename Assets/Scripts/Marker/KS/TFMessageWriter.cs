@@ -6,7 +6,7 @@ public class TFMessageWriter : MonoBehaviour
     [SerializeField] private GameObject joint;
     [SerializeField] private string frame_id;
     [SerializeField] private GameObject ks;
-    [SerializeField] private SaveSettings settings;
+    [SerializeField] private Settings settings;
     private Vector3 translation; //nicht benötigt?
     private Quaternion rotation;
     
@@ -29,6 +29,22 @@ public class TFMessageWriter : MonoBehaviour
         set { rotation = value; }
         get { return rotation; }
     }
+    public Settings Settings
+    {
+        set { if (settings == null) { settings = value; } }
+        get { return settings; }
+    }
+    public GameObject Joint
+    {
+        set { joint = value; }
+        get { return joint; }
+    }
+    public GameObject Ks
+    {
+        set { ks = value; }
+        get { return ks; }
+    }
+
 
 
     // Start is called before the first frame update
@@ -52,7 +68,7 @@ public class TFMessageWriter : MonoBehaviour
     {
         Debug.Log(rotation.eulerAngles);
         ks.transform.rotation = rotation;
-        Vector3 camDirection = settings.Cam.transform.position - joint.transform.position;
+        Vector3 camDirection = settings.Camera(settings.ActiveCam).transform.position - joint.transform.position;
         //camDirection.x *= 3;
         camDirection = camDirection.normalized;
         ks.transform.position = joint.transform.position + camDirection;

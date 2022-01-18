@@ -1,211 +1,127 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 public class SaveSettings : MonoBehaviour
 {
-    private GuiSettings.ActiveCam activeCam;
-    private GuiSettings.RobotZoom robotZoom;
-    [SerializeField] private Camera[] cam;
-    [SerializeField] private GameObject toActiveCam;
-    [SerializeField] private GameObject toGoToRobot;
-    [SerializeField] private GameObject[] robot;
-    private Toggle[] tosActiveCam;
-    private Toggle[] tosGoToRobot;
-    [SerializeField] private Slider slSpeed;
-
-    public GuiSettings.ActiveCam ActiveCam
-    {
-        get { return activeCam; }
-    }
-
-    public GameObject Cam
-    {
-        get
-        {
-            switch (activeCam)
-            {
-                case GuiSettings.ActiveCam.Main:
-                    return cam[0].gameObject;
-                case GuiSettings.ActiveCam.TeaLeft:
-                    return cam[1].gameObject;
-                case GuiSettings.ActiveCam.TeaRight:
-                    return cam[2].gameObject;
-                case GuiSettings.ActiveCam.Ted:
-                    return cam[3].gameObject;
-                case GuiSettings.ActiveCam.TimLeft:
-                    return cam[4].gameObject;
-                case GuiSettings.ActiveCam.TimRight:
-                    return cam[5].gameObject;
-                case GuiSettings.ActiveCam.Tod:
-                    return cam[6].gameObject;
-                case GuiSettings.ActiveCam.Tom:
-                    return cam[7].gameObject;
-                default:
-                    throw new MissingReferenceException("Keine aktive Kamera ausgewählt");
-            }
-        }
-    }
+    [SerializeField] private Settings settings;
 
     private void Start()
     {
-        tosActiveCam = toActiveCam.GetComponentsInChildren<Toggle>();
-        tosGoToRobot = toGoToRobot.GetComponentsInChildren<Toggle>();
-        tosActiveCam[0].isOn = true;
-        tosGoToRobot[0].isOn = true;
-        slSpeed.value = 0.5f;
+        settings.ActiveCam = GuiSettings.Cam.Main;
+        settings.FocusRobot = GuiSettings.Robot.Ted;
+        settings.SlCamSpeed.value = 0.5f;
+        bool[] showKse = new bool[5];
+        for (int i = 0; i < showKse.Length; i++)
+        {
+            showKse[i] = false;
+        }
+        settings.ShowKse = showKse;
         OnBuSaveSettings();
     }
 
     public void OnBuSaveSettings()
     {
         SetCam();
-        SetCamZoom();
-        if (activeCam == GuiSettings.ActiveCam.Main) 
+        if (settings.ActiveCam == GuiSettings.Cam.Main) 
         {
-            GetComponent<CamMovement>().Speed = 25 * slSpeed.value * slSpeed.value;
+            SetCamFocus();
+            SetCamSpeed();
         }
+        SetKS();
+    }
+
+    private void SetCamSpeed()
+    {
+        settings.CamSpeed = 25;
+    }
+
+    private void SetKS()
+    {
+        bool[] ks = new bool[settings.Koordinatensysteme.Length];
+        for (int i = 0; i < ks.Length; i++)
+        {
+            ks[i] = settings.ToShowKSe[i].isOn;
+        }
+        settings.ShowKse = ks;
+        settings.Koordinatensystem(GuiSettings.Robot.Tea).SetActive(ks[0]);
+        settings.Koordinatensystem(GuiSettings.Robot.Ted).SetActive(ks[1]);
+        settings.Koordinatensystem(GuiSettings.Robot.Tim).SetActive(ks[2]);
+        settings.Koordinatensystem(GuiSettings.Robot.Tod).SetActive(ks[3]);
+        settings.Koordinatensystem(GuiSettings.Robot.Tom).SetActive(ks[4]);
     }
 
     private void SetCam()
     {
         int index = 0;
-        while (!tosActiveCam[index].isOn)
+        while (!settings.ToActiveCams[index].isOn)
         {
             index++;
         }
-        switch (index)
-        {
-            case 0:
-                activeCam = GuiSettings.ActiveCam.Main;
-                break;
-            case 1:
-                activeCam = GuiSettings.ActiveCam.TeaLeft;
-                break;
-            case 2:
-                activeCam = GuiSettings.ActiveCam.TeaRight;
-                break;
-            case 3:
-                activeCam = GuiSettings.ActiveCam.Ted;
-                break;
-            case 4:
-                activeCam = GuiSettings.ActiveCam.TimLeft;
-                break;
-            case 5:
-                activeCam = GuiSettings.ActiveCam.TimRight;
-                break;
-            case 6:
-                activeCam = GuiSettings.ActiveCam.Tod;
-                break;
-            case 7:
-                activeCam = GuiSettings.ActiveCam.Tom;
-                break;
-            default:
-                throw new KeyNotFoundException("Keine Kamera ausgewählt");
-        }
+        settings.ActiveCam = (GuiSettings.Cam)index;
         EnableCam();
-
     }
 
     private void EnableCam()
     {
-        for (int i = 0; i < cam.Length; i++)
+        for (int i = 0; i < settings.Cameras.Length; i++)
         {
-            cam[i].gameObject.SetActive(false);
+            settings.Cameras[i].SetActive(false);
         }
-        switch (activeCam)
-        {
-            case GuiSettings.ActiveCam.Main:
-                cam[0].gameObject.SetActive(true);
-                break;
-            case GuiSettings.ActiveCam.TeaLeft:
-                cam[1].gameObject.SetActive(true);
-                break;
-            case GuiSettings.ActiveCam.TeaRight:
-                cam[2].gameObject.SetActive(true);
-                break;
-            case GuiSettings.ActiveCam.Ted:
-                cam[3].gameObject.SetActive(true);
-                break;
-            case GuiSettings.ActiveCam.TimLeft:
-                cam[4].gameObject.SetActive(true);
-                break;
-            case GuiSettings.ActiveCam.TimRight:
-                cam[5].gameObject.SetActive(true);
-                break;
-            case GuiSettings.ActiveCam.Tod:
-                cam[6].gameObject.SetActive(true);
-                break;
-            case GuiSettings.ActiveCam.Tom:
-                cam[7].gameObject.SetActive(true);
-                break;
-            default:
-                break;
-        }
+        settings.Camera(settings.ActiveCam).SetActive(true);
     }
 
-    private void SetCamZoom()
+    private void SetCamFocus()
     {
-        if (activeCam == GuiSettings.ActiveCam.Main)
+        int index = 0;
+        bool noCamFocus = false;
+        bool findCamFocus = false;
+        while (!noCamFocus && !findCamFocus)
         {
-            int index = 0;
-            while (!tosGoToRobot[index].isOn)
+            if (settings.ToFocusRobots[index].isOn)
+            {
+                findCamFocus = true;
+            } else
             {
                 index++;
-                if (index>=tosGoToRobot.Length)
+                if (index >= settings.ToFocusRobots.Length)
                 {
-                    break;
+                    noCamFocus = true;
                 }
             }
-            switch (index)
-            {
-                case 0:
-                    robotZoom = GuiSettings.RobotZoom.Tea;
-                    MoveCam(index);
-                    break;
-                case 1:
-                    robotZoom = GuiSettings.RobotZoom.Ted;
-                    MoveCam(index);
-                    break;
-                case 2:
-                    robotZoom = GuiSettings.RobotZoom.Tim;
-                    MoveCam(index);
-                    break;
-                case 3:
-                    robotZoom = GuiSettings.RobotZoom.Tod;
-                    MoveCam(index);
-                    break;
-                case 4:
-                    robotZoom = GuiSettings.RobotZoom.Tom;
-                    MoveCam(index);
-                    break;
-                default:
-                    robotZoom = GuiSettings.RobotZoom.Keiner;
-                    break;
-            }
-            
+
+        }
+        if (!noCamFocus)
+        {
+            settings.FocusRobot = (GuiSettings.Robot)index;
+            MoveCam();
         }
     }
 
-    private void MoveCam(int index)
+    private void MoveCam()
     {
-        Vector3 pos = robot[index].transform.position;
+        Vector3 pos = settings.Robot(settings.FocusRobot).transform.position;
         Vector3 rot;
-        switch (index)
+        switch (settings.FocusRobot)
         {
-            case 1:
-                rot = new Vector3(45, 90, 0);
-                break;
-            case 3:
-                rot = new Vector3(45, -90, 0);
-                break;
-            default:
+            case GuiSettings.Robot.Tea:
                 rot = new Vector3(45, 180, 0);
                 break;
+            case GuiSettings.Robot.Ted:
+                rot = new Vector3(45, 90, 0);
+                break;
+            case GuiSettings.Robot.Tim:
+                rot = new Vector3(45, 180, 0);
+                break;
+            case GuiSettings.Robot.Tod:
+                rot = new Vector3(45, -90, 0);
+                break;
+            case GuiSettings.Robot.Tom:
+                rot = new Vector3(45, 180, 0);
+                break;
+            default:
+                rot = Vector3.zero;
+                break;
         }
-        cam[0].gameObject.transform.SetPositionAndRotation(pos, Quaternion.Euler(rot));
-        cam[0].gameObject.transform.position -= 10 * cam[0].gameObject.transform.forward;
+        settings.Camera(settings.ActiveCam).transform.rotation = Quaternion.Euler(rot);
+        settings.Camera(settings.ActiveCam).transform.position = pos - 10 * settings.Camera(settings.ActiveCam).transform.forward;
     }
 }
