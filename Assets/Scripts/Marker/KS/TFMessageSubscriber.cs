@@ -1,6 +1,3 @@
-using RosSharp.RosBridgeClient.MessageTypes.Geometry;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace RosSharp.RosBridgeClient

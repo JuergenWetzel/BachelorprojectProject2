@@ -6,7 +6,8 @@ public class TFMessageWriter : MonoBehaviour
     [SerializeField] private GameObject joint;
     [SerializeField] private string frame_id;
     [SerializeField] private GameObject ks;
-    [SerializeField] private Settings settings;
+    [SerializeField] private Datas datas;
+    [SerializeField] private Vector3 defRotation;
     private Vector3 translation; //nicht benötigt?
     private Quaternion rotation;
     
@@ -29,10 +30,10 @@ public class TFMessageWriter : MonoBehaviour
         set { rotation = value; }
         get { return rotation; }
     }
-    public Settings Settings
+    public Vector3 DefRotation
     {
-        set { if (settings == null) { settings = value; } }
-        get { return settings; }
+        get { return defRotation; }
+        set { defRotation = value; }
     }
     public GameObject Joint
     {
@@ -67,8 +68,8 @@ public class TFMessageWriter : MonoBehaviour
     private void WriteUpdate()
     {
         Debug.Log(rotation.eulerAngles);
-        ks.transform.rotation = rotation;
-        Vector3 camDirection = settings.Camera(settings.ActiveCam).transform.position - joint.transform.position;
+        ks.transform.rotation = Quaternion.Euler(rotation.eulerAngles + defRotation);
+        Vector3 camDirection = datas.Cam.transform.position - joint.transform.position;
         //camDirection.x *= 3;
         camDirection = camDirection.normalized;
         ks.transform.position = joint.transform.position + camDirection;
