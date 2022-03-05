@@ -4,28 +4,31 @@ using UnityEngine;
 using System.IO;
 using System;
 using RosSharp.RosBridgeClient;
-
+using UnityEngine.UI;
 
 [Serializable]
 public class JsonWriter : MonoBehaviour
 {
-    [SerializeField] Settings settings;
-    private RobotData[] Roboter;
+    [SerializeField] Datas datas;
+    private RoboterData[] Roboter;
     private string jsonString;
 
     private void Start()
     {
-        Roboter = new RobotData[settings.RosConnectors.Length];
-        for (int i = 0; i < settings.RosConnectors.Length; i++)
+        int count = datas.GroupToShowKs.GetComponentsInChildren<Toggle>().Length;
+        GameObject[] roboter = GameObject.FindGameObjectsWithTag("Roboter");
+        Roboter = new RoboterData[count];
+        for (int i = 0; i < count; i++)
         {
-            Roboter[i] = new RobotData(settings.RosConnectors[i].GetComponent<RosConnector>());
+            Roboter[i] = new RoboterData();
+            
         }
         WriteJson();
     }
 
     private void WriteJson()
     {
-        jsonString = JsonHelper.ToJson<RobotData>(Roboter, true);
+        jsonString = JsonHelper<RoboterData>.ToJson(Roboter, true);
         File.WriteAllText(Pfad.Path, jsonString);
         Debug.Log("Json beschrieben: " + jsonString);
     }

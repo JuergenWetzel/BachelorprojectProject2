@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class CamMovement : MonoBehaviour
 {
-    [SerializeField] private Settings settings;
+    [SerializeField] private Datas datas;
     private enum ActiveState
     {
         Nothing, 
@@ -51,9 +51,9 @@ public class CamMovement : MonoBehaviour
         }
         if (activeState != ActiveState.Nothing)
         {
-            settings.Camera(GuiSettings.Cam.Main).transform.position += deltaPos * Time.deltaTime * settings.CamSpeed;
-            settings.Camera(GuiSettings.Cam.Main).transform.Rotate(deltaRot * Time.deltaTime * settings.CamSpeed);
-            settings.Camera(GuiSettings.Cam.Main).transform.rotation = Quaternion.Euler(settings.Camera(GuiSettings.Cam.Main).transform.rotation.eulerAngles.x, settings.Camera(GuiSettings.Cam.Main).transform.rotation.eulerAngles.y, 0);
+            datas.Cam.transform.position += deltaPos * Time.deltaTime * datas.CamSpeed;
+            datas.Cam.transform.Rotate(deltaRot * Time.deltaTime * datas.CamSpeed);
+            datas.Cam.transform.rotation = Quaternion.Euler(datas.Cam.transform.rotation.eulerAngles.x, datas.Cam.transform.rotation.eulerAngles.y, 0);
         }
     }
 
@@ -99,7 +99,7 @@ public class CamMovement : MonoBehaviour
 
     private void Move()
     {
-        deltaPos += settings.Camera(GuiSettings.Cam.Main).transform.right * move.x + settings.Camera(GuiSettings.Cam.Main).transform.up * move.y;
+        deltaPos += datas.Cam.transform.right * move.x + datas.Cam.transform.up * move.y;
     }
     private void Turn()
     {
@@ -109,10 +109,10 @@ public class CamMovement : MonoBehaviour
     private void Zoom()
     {
         mouseDelta = Mouse.current.delta.ReadValue();
-        deltaPos += settings.Camera(GuiSettings.Cam.Main).transform.forward * mouseDelta.y;
+        deltaPos += datas.Cam.transform.forward * mouseDelta.y;
     }
     private void ZoomScroll()
     {
-        deltaPos += settings.Camera(GuiSettings.Cam.Main).transform.forward * scroll / 10;
+        deltaPos += datas.Cam.transform.forward * scroll / 10;
     }
 }

@@ -7,12 +7,13 @@ using UnityEngine.InputSystem;
 
 public class Settings : MonoBehaviour
 {
-    // Wichtige Objekte alphabetisch sortiert
+    /*// Wichtige Objekte alphabetisch sortiert
     [SerializeField] private GameObject[] robots;
     [SerializeField] private GameObject[] cameras;
     [SerializeField] private GameObject[] rosConnectors;
     [SerializeField] private GameObject[] koordinatensysteme;
     [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private GameObject[] robotPrefabs;
 
     // Felder in Gui
     [SerializeField] private GameObject gui;
@@ -37,6 +38,7 @@ public class Settings : MonoBehaviour
         toShowKse = groupToShowKS.GetComponentsInChildren<Toggle>();
     }
 
+    
     public GameObject Robot(GuiSettings.Robot robot)
     {
         switch (robot)
@@ -175,6 +177,7 @@ public class Settings : MonoBehaviour
         get { return focusRobot; }
         set { focusRobot = value; }
     }
+    public GameObject[] RobotPrefabs { get => robotPrefabs; }
     public GameObject[] RobotJoints(int index)
     {
         List<GameObject> joints = new List<GameObject>();
@@ -186,5 +189,5 @@ public class Settings : MonoBehaviour
             }
         }
         return joints.ToArray();
-    }
+    }*/
 }

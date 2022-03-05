@@ -3,34 +3,14 @@ using UnityEngine.InputSystem;
 
 public class GuiSettings : MonoBehaviour
 {
-    [SerializeField] private Settings settings;
+    [SerializeField] private Datas datas;
     private bool activeGui;
-    public enum Cam
-    {
-        Main,
-        TeaLeft,
-        TeaRight,
-        Ted,
-        TimLeft,
-        TimRight,
-        Tod,
-        Tom
-    }
-    public enum Robot
-    {
-        Tea, 
-        Ted, 
-        Tim, 
-        Tod, 
-        Tom,
-        Keiner
-    }
 
     // Start is called before the first frame update
     void Start()
     {
         activeGui = false;
-        settings.Gui.SetActive(activeGui);
+        datas.Gui.SetActive(activeGui);
     }
 
     public void OnOpenGui()
@@ -38,13 +18,13 @@ public class GuiSettings : MonoBehaviour
         activeGui = !activeGui;
         if (activeGui)
         {
-            settings.Gui.SetActive(true);
-            settings.PlayerInput.SwitchCurrentActionMap("Gui");
+            datas.Gui.SetActive(true);
+            datas.PlayerInput.SwitchCurrentActionMap("Gui");
         }
         else
         {
-            settings.Gui.SetActive(false);
-            settings.PlayerInput.SwitchCurrentActionMap("Steuerung");
+            datas.Gui.SetActive(false);
+            datas.PlayerInput.SwitchCurrentActionMap("Steuerung");
         }
     }
 
