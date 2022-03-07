@@ -1,89 +1,20 @@
 {
-    "Roboter": [
+    "TrajektorieTestTed":[
         {
-            "Name": "tea",
-            "type": "tea",
-            "Position": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
+            "type":"ted",
+            "name":"Teddy",
+            "Namespace":"",
+            "Position":{
+                "x":0,
+                "y":5,
+                "z":0
             },
-            "Rotation": {
-                "x": 90.0,
-                "y": 50.0,
-                "z": 0.0
+            "Rotation":{
+                "x":0,
+                "y":0,
+                "z":0
             },
-            "Ip": "192.168.178.78",
-            "Topic": "/Tea1/joint_states",
-            "port": "9090"
-        },
-        {
-            "ip": "192.168.178.78",
-            "topic": "/Tim1/joint_states",
-            "type": "tea",
-            "name": "tim",
-            "position": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": -5.0
-            },
-            "rotation": {
-                "x": 90.0,
-                "y": 0.0,
-                "z": -50.0
-            },
-            "Port": "9090"
-        },
-        {
-            "Name": "ted1",
-            "type": "Ted",
-            "Position": {
-                "x": 10.0,
-                "y": 0.0,
-                "z": -2.5
-            },
-            "Rotation": {
-                "x": 0.0,
-                "y": -90.0,
-                "z": 0.0
-            },
-            "IP": "192.168.178.78",
-            "Topic": "/Ted1/joint_states",
-            "Port": "9090"
-        },
-        {
-            "type": "Tod",
-            "Name": "tod",
-            "Position": {
-                "x": 25,
-                "y": 0.0,
-                "z": -7.5
-            },
-            "Rotation": {
-                "x": 0.0,
-                "y": 90.0,
-                "z": 0.0
-            },
-            "ip": "192.168.178.78",
-            "Topic": "/Tod1/joint_states",
-            "Port": "9090"
-        },
-        {
-            "Name": "tom",
-            "type": "Tom",
-            "Position": {
-                "x": 30.0,
-                "y": 0.0,
-                "z": -10.0
-            },
-            "Rotation": {
-                "x": 0.0,
-                "y": 180.0,
-                "z": 0.0
-            },
-            "ip": "192.168.178.78",
-            "Topic": "/Tom1/joint_states",
-            "Port": "9090"
+            "ip":"192.168.178.78:9090"
         }
     ]
 }

@@ -8,7 +8,7 @@ namespace RosSharp.RosBridgeClient
 
         protected override void ReceiveMessage(MessageTypes.Tf2.TFMessage message)
         {
-            UnityEngine.Vector3 rot = UnityEngine.Vector3.zero;
+            Vector3 rot = Vector3.zero;
             Debug.Log("Message Received");
             int index;
             MessageTypes.Geometry.Transform translation;
@@ -31,7 +31,7 @@ namespace RosSharp.RosBridgeClient
                 if (index != -1) 
                 {
                     tFMessageWriters[index].Translation = TransformExtensions.Ros2Unity(new UnityEngine.Vector3((float)translation.translation.x, (float)translation.translation.y, (float)translation.translation.z));
-                    UnityEngine.Vector3 rot2 = new UnityEngine.Quaternion((float)translation.rotation.x, (float)translation.rotation.y, (float)translation.rotation.z, (float)translation.rotation.w).eulerAngles;
+                    Vector3 rot2 = new Quaternion((float)translation.rotation.x, (float)translation.rotation.y, (float)translation.rotation.z, (float)translation.rotation.w).eulerAngles;
                     rot.x += rot2.x;
                     rot.y += -rot2.z;
                     rot.z += rot2.y;

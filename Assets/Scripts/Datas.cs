@@ -26,6 +26,10 @@ public class Datas : MonoBehaviour
     private static string jsonString;
     private static string path;
 
+    private static List<GameObject> trajektorien;
+
+    [SerializeField] private GameObject trajektoriePrefab;
+
     public static GameObject[] Robots { get => robots; set => robots = value; }
     public static Toggle[] ToFocusRobot { get => toFocusRobot; set => toFocusRobot = value; }
     public static Toggle[] ToShowKs { get => toShowKs; set => toShowKs = value; }
@@ -42,4 +46,6 @@ public class Datas : MonoBehaviour
     public GameObject GroupToZoomRobot { get => groupToZoomRobot; set => groupToZoomRobot = value; }
     public GameObject GroupToShowKs { get => groupToShowKs; set => groupToShowKs = value; }
     public GameObject Cam { get => cam; set => cam = value; }
+    public GameObject TrajektoriePrefab { get => trajektoriePrefab; }
+    public static List<GameObject> Trajektorien { get => trajektorien; set => trajektorien = value; }
 }

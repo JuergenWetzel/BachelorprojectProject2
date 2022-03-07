@@ -22,21 +22,17 @@ namespace RosSharp.RosBridgeClient
     {
         public List<string> JointNames;
         public List<JointStateWriter> JointStateWriters;
-
         protected override void ReceiveMessage(MessageTypes.Sensor.JointState message)
         {
             int index;
-            //string position = "";
             for (int i = 0; i < message.name.Length; i++)
             {
                 index = JointNames.IndexOf(message.name[i]);
                 if (index != -1)
                 {
                     JointStateWriters[index].Write((float)message.position[i]);
-                    //position += message.position[i] + "   ";
                 }
             }
-            //Debug.Log(position);
         }
     }
 }

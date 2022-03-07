@@ -46,7 +46,7 @@ public class RoboterData
     private void SetupRosConnector()
     {
         rosConnector = roboter.GetComponentInChildren<RosConnector>();
-        rosConnector.RosBridgeServerUrl = @"ws://" + ip + ":" + port;
+        rosConnector.RosBridgeServerUrl = @"ws://" + ip;
         rosConnector.GetComponent<JointStateSubscriber>().Topic = Namespace + "/joint_states";
     }
 
@@ -84,9 +84,12 @@ public class RoboterData
                 ip = Ip;
             }
         }
-        if (port == null)
+        if (port != null)
         {
-            port = Port;
+            ip += ":" + port;
+        } else if (Port != null)
+        {
+            ip += ":" + Port;
         }
         if (name == null)
         {
