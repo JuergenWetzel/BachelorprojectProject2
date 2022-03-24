@@ -6,7 +6,6 @@ public class KsPosition : MonoBehaviour
 {
     [SerializeField] private UrdfJoint joint;
     [SerializeField] private Vector3 rotateRos;
-    [SerializeField] private Datas datas;
     private Vector3 rotation;
     private bool basis;
     private GameObject parentJoint;
@@ -22,7 +21,7 @@ public class KsPosition : MonoBehaviour
     {
         rotation = joint.gameObject.transform.rotation.eulerAngles;
         transform.rotation = Quaternion.Euler(Vektordrehung2() + rotateRos);
-        transform.position = joint.transform.position - (joint.transform.position - datas.Cam.transform.position).normalized;
+        transform.position = joint.transform.position - (joint.transform.position - Datas.Cam.transform.position).normalized;
     }
 
     private Vector3 Vektordrehung()

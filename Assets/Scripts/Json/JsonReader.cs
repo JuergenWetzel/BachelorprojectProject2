@@ -16,7 +16,9 @@ public class JsonReader : MonoBehaviour
         Datas.Robots =  new GameObject[count];
         Datas.ToFocusRobot = new Toggle[count];
         Datas.ToShowKs = new Toggle[count];
+        Datas.ToShowTraj = new Toggle[count];
         Datas.ShowKs = new bool[count];
+        Datas.ShowTraj = new bool[count];
     }
 
     private void Reader()

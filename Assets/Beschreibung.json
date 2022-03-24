@@ -1,20 +1,165 @@
 {
-    "TrajektorieTestTed":[
+    "Array":[
         {
-            "type":"ted",
-            "name":"Teddy",
-            "Namespace":"",
-            "Position":{
-                "x":0,
-                "y":5,
-                "z":0
-            },
-            "Rotation":{
-                "x":0,
-                "y":0,
-                "z":0
-            },
+            "type": "tea",
+            "name": "Roboter1",
+            "Namespace": "TeSt",
+            "Position":{"x":0,"y":5,"z":0},
+            "Rotation":{"x":0,"y":50,"z":0},
+            "ip":"192.168.178.78:9090"
+        },
+        {
+            "type":"tea",
+            "name":"Roboter2",
+            "Namespace" : "bla",
+            "Position":{"x":0,"y":5,"z":0},
+            "Rotation":{"x":0,"y":0,"z":0},
+            "ip":"192.168.178.78:9090"
+        },
+        {
+            "type":"tea",
+            "name":"Roboter3",
+            "Namespace" : "bla",
+            "Position":{"x":0,"y":5,"z":0},
+            "Rotation":{"x":0,"y":0,"z":0},
+            "ip":"192.168.178.78:9090"
+        },
+        {
+            "type":"tea",
+            "name":"Roboter4",
+            "Namespace" : "bla",
+            "Position":{"x":0,"y":5,"z":0},
+            "Rotation":{"x":0,"y":0,"z":0},
+            "ip":"192.168.178.78:9090"
+        },
+        {
+            "type":"tea",
+            "name":"Roboter5",
+            "Namespace" : "bla",
+            "Position":{"x":0,"y":0,"z":0},
+            "Rotation":{"x":0,"y":0,"z":0},
+            "ip":"192.168.178.78:9090"
+        },
+        {
+            "type":"tea",
+            "name":"Roboter6",
+            "Namespace" : "bla",
+            "Position":{"x":0,"y":0,"z":0},
+            "Rotation":{"x":0,"y":0,"z":0},
+            "ip":"192.168.178.78:9090"
+        },
+        {
+            "type":"tea",
+            "name":"Roboter7",
+            "Namespace" : "bla",
+            "Position":{"x":0,"y":0,"z":0},
+            "Rotation":{"x":0,"y":0,"z":0},
+            "ip":"192.168.178.78:9090"
+        },
+        {
+            "type":"tea",
+            "name":"Roboter8",
+            "Namespace" : "bla",
+            "Position":{"x":0,"y":0,"z":30},
+            "Rotation":{"x":0,"y":0,"z":0},
+            "ip":"192.168.178.78:9090"
+        },
+        {
+            "type":"tea",
+            "name":"Roboter9",
+            "Namespace" : "bla",
+            "Position":{"x":0,"y":0,"z":0},
+            "Rotation":{"x":0,"y":0,"z":0},
+            "ip":"192.168.178.78:9090"
+        },
+        {
+            "type":"tea",
+            "name":"Roboter10",
+            "Namespace" : "bla",
+            "Position":{"x":0,"y":0,"z":20},
+            "Rotation":{"x":0,"y":0,"z":0},
+            "ip":"192.168.178.78:9090"
+        },
+        {
+            "type":"tea",
+            "name":"Roboter11",
+            "Namespace" : "bla",
+            "Position":{"x":20,"y":0,"z":0},
+            "Rotation":{"x":0,"y":0,"z":0},
+            "ip":"192.168.178.78:9090"
+        },
+        {
+            "type":"tea",
+            "name":"Roboter12",
+            "Namespace" : "bla",
+            "Position":{"x":0,"y":0,"z":0},
+            "Rotation":{"x":0,"y":0,"z":0},
+            "ip":"192.168.178.78:9090"
+        },
+        {
+            "type":"tea",
+            "name":"Roboter13",
+            "Namespace" : "bla",
+            "Position":{"x":0,"y":5,"z":0},
+            "Rotation":{"x":0,"y":0,"z":0},
+            "ip":"192.168.178.78:9090"
+        },
+        {
+            "type":"tea",
+            "name":"Roboter14",
+            "Namespace" : "bla",
+            "Position":{"x":0,"y":5,"z":0},
+            "Rotation":{"x":0,"y":0,"z":0},
+            "ip":"192.168.178.78:9090"
+        },
+        {
+            "type":"tea",
+            "name":"Roboter15",
+            "Namespace" : "bla",
+            "Position":{"x":0,"y":5,"z":0},
+            "Rotation":{"x":0,"y":0,"z":0},
+            "ip":"192.168.178.78:9090"
+        },
+        {
+            "type":"tea",
+            "name":"Roboter16",
+            "Namespace" : "bla",
+            "Position":{"x":0,"y":5,"z":0},
+            "Rotation":{"x":0,"y":0,"z":0},
+            "ip":"192.168.178.78:9090"
+        },
+        {
+            "type":"tea",
+            "name":"Roboter17",
+            "Namespace" : "bla",
+            "Position":{"x":0,"y":0,"z":0},
+            "Rotation":{"x":0,"y":0,"z":-0},
+            "ip":"192.168.178.78:9090"
+        },
+        {
+            "type":"tea",
+            "name":"Roboter18",
+            "Namespace" : "bla",
+            "Position":{"x":0,"y":5,"z":0},
+            "Rotation":{"x":0,"y":0,"z":0},
+            "ip":"192.168.178.78:9090"
+        },
+        {
+            "type":"tea",
+            "name":"Roboter19",
+            "Namespace" : "bla",
+            "Position":{"x":0,"y":5,"z":0},
+            "Rotation":{"x":0,"y":0,"z":0},
+            "ip":"192.168.178.78:9090"
+        },
+        {
+            "type":"tea",
+            "name":"Roboter20",
+            "Namespace" : "bla",
+            "Position":{"x":0,"y":5,"z":0},
+            "Rotation":{"x":0,"y":0,"z":0},
             "ip":"192.168.178.78:9090"
         }
+        
     ]
 }

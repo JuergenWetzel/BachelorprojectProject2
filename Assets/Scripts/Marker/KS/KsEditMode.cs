@@ -9,12 +9,10 @@ public class KsEditMode : MonoBehaviour
     private UrdfRobot oldRobot;
     private Arrows[] arrows;
     private UrdfJoint[] joints;
-    [SerializeField] private Datas datas;
     [SerializeField] private bool update;
 
     private void Start()
     {
-        datas = GameObject.Find("Input").GetComponent<Datas>();
         update = false;
     }
 
@@ -87,7 +85,6 @@ public class KsEditMode : MonoBehaviour
         {
             arrows[i].gameObject.GetComponent<KsBewegen>().Joint = joints[i];
             arrows[i].name = "Ks_" + joints[i].name;
-            arrows[i].GetComponent<KsBewegen>().Data = datas;
         }
     }
 }

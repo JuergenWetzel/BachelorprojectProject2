@@ -9,13 +9,12 @@ using UnityEngine.UI;
 [Serializable]
 public class JsonWriter : MonoBehaviour
 {
-    [SerializeField] Datas datas;
     private RoboterData[] Roboter;
     private string jsonString;
 
     private void Start()
     {
-        int count = datas.GroupToShowKs.GetComponentsInChildren<Toggle>().Length;
+        int count = Datas.GroupToShowKs.GetComponentsInChildren<Toggle>().Length;
         GameObject[] roboter = GameObject.FindGameObjectsWithTag("Roboter");
         Roboter = new RoboterData[count];
         for (int i = 0; i < count; i++)

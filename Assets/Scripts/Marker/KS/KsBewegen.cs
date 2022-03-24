@@ -5,16 +5,14 @@ using UnityEngine;
 
 public class KsBewegen : MonoBehaviour
 {
-    [SerializeField] private UrdfJoint joint;
-    [SerializeField] private Datas data;
+    private UrdfJoint joint;
 
     public UrdfJoint Joint { get => joint; set => joint = value; }
-    public Datas Data { get => data; set => data = value; }
 
     private Vector3 Position()
     {
         Vector3 pos = joint.transform.position;
-        Vector3 camDirection = joint.transform.position - Data.Cam.transform.position;
+        Vector3 camDirection = joint.transform.position - Datas.Cam.transform.position;
 
         return pos - camDirection.normalized;
     }

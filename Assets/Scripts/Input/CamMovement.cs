@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 
 public class CamMovement : MonoBehaviour
 {
-    [SerializeField] private Datas datas;
     private enum ActiveState
     {
         Nothing, 
@@ -51,9 +50,9 @@ public class CamMovement : MonoBehaviour
         }
         if (activeState != ActiveState.Nothing)
         {
-            datas.Cam.transform.position += deltaPos * Time.deltaTime * datas.CamSpeed;
-            datas.Cam.transform.Rotate(deltaRot * Time.deltaTime * datas.CamSpeed);
-            datas.Cam.transform.rotation = Quaternion.Euler(datas.Cam.transform.rotation.eulerAngles.x, datas.Cam.transform.rotation.eulerAngles.y, 0);
+            Datas.Cam.transform.position += deltaPos * Time.deltaTime * Datas.CamSpeed;
+            Datas.Cam.transform.Rotate(deltaRot * Time.deltaTime * Datas.CamSpeed);
+            Datas.Cam.transform.rotation = Quaternion.Euler(Datas.Cam.transform.rotation.eulerAngles.x, Datas.Cam.transform.rotation.eulerAngles.y, 0);
         }
     }
 
@@ -99,7 +98,7 @@ public class CamMovement : MonoBehaviour
 
     private void Move()
     {
-        deltaPos += datas.Cam.transform.right * move.x + datas.Cam.transform.up * move.y;
+        deltaPos += Datas.Cam.transform.right * move.x + Datas.Cam.transform.up * move.y;
     }
     private void Turn()
     {
@@ -109,10 +108,10 @@ public class CamMovement : MonoBehaviour
     private void Zoom()
     {
         mouseDelta = Mouse.current.delta.ReadValue();
-        deltaPos += datas.Cam.transform.forward * mouseDelta.y;
+        deltaPos += Datas.Cam.transform.forward * mouseDelta.y;
     }
     private void ZoomScroll()
     {
-        deltaPos += datas.Cam.transform.forward * scroll / 10;
+        deltaPos += Datas.Cam.transform.forward * scroll / 10;
     }
 }

@@ -6,7 +6,6 @@ public class TFMessageWriter : MonoBehaviour
     [SerializeField] private GameObject joint;
     [SerializeField] private string frame_id;
     [SerializeField] private GameObject ks;
-    [SerializeField] private Datas datas;
     [SerializeField] private Vector3 defRotation;
     private Vector3 translation; //nicht benötigt?
     private Quaternion rotation;
@@ -69,7 +68,7 @@ public class TFMessageWriter : MonoBehaviour
     {
         Debug.Log(rotation.eulerAngles);
         ks.transform.rotation = Quaternion.Euler(rotation.eulerAngles + defRotation);
-        Vector3 camDirection = datas.Cam.transform.position - joint.transform.position;
+        Vector3 camDirection = Datas.Cam.transform.position - joint.transform.position;
         //camDirection.x *= 3;
         camDirection = camDirection.normalized;
         ks.transform.position = joint.transform.position + camDirection;

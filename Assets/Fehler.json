@@ -1,12 +1,20 @@
 {
     "Text":[
         {
-            "zahl": 5.0,
-            "text2":"abc"
-        },
-        {
-            "zahl":1.2,
-            "text2":"def"
+            "Position":{
+                "x":5,
+                "y":0,
+                "z":0
+            },
+            "roTatIon":{
+                "x":0,
+                "y":0,
+                "z":0
+            },
+            "namespace":"Ted1",
+            "Type":"Ted",
+            "Name":"Roboter1",
+            "IP":"192.168.178.78:9090"
         }
     ]
 }

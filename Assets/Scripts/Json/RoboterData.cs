@@ -9,7 +9,6 @@ using UnityEngine.UI;
 [Serializable]
 public class RoboterData
 {
-    public Datas datas;
     public string type;
     public string Type;
     public string ip;
@@ -26,12 +25,17 @@ public class RoboterData
     public string Namespace;
     private GameObject roboter;
     private RosConnector rosConnector;
+    public string space;
 
     public void Init(int index)
     {
-        datas = GameObject.Find("Input").GetComponent<Datas>();
+        if (space.IndexOf('/') != 0)
+        {
+            space = "/" + space;
+        }
         Debug.Log("init Robot Nr. " + index);
-        SetValues();
+        Namespace = space;
+        //SetValues();
         roboter = Spawn();
         Debug.Log(position + ", " + rotation);
         Datas.Robots[index] = roboter;
@@ -52,19 +56,25 @@ public class RoboterData
 
     private void CreateToggles(int index)
     {
-        GameObject toFocus = GameObject.Instantiate(datas.TogglePrefab, datas.GroupToZoomRobot.transform);
-        toFocus.GetComponent<Toggle>().group = datas.GroupToZoomRobot.GetComponent<ToggleGroup>();
+        GameObject toFocus = GameObject.Instantiate(Datas.TogglePrefab, Datas.GroupToZoomRobot.transform);
+        toFocus.GetComponent<Toggle>().group = Datas.GroupToZoomRobot.GetComponent<ToggleGroup>();
         toFocus.GetComponent<Toggle>().isOn = false;
         toFocus.name = "toFocus_" + roboter.name;
         toFocus.GetComponentInChildren<Text>().text = roboter.name;
-        GameObject toKs = GameObject.Instantiate(datas.TogglePrefab, datas.GroupToShowKs.transform);
-        toKs.GetComponent<Toggle>().group = datas.GroupToShowKs.GetComponent<ToggleGroup>();
+        GameObject toKs = GameObject.Instantiate(Datas.TogglePrefab, Datas.GroupToShowKs.transform);
+        toKs.GetComponent<Toggle>().group = Datas.GroupToShowKs.GetComponent<ToggleGroup>();
         toKs.GetComponent<Toggle>().isOn = false;
         toKs.name = "toShowKs_" + roboter.name;
         toKs.GetComponentInChildren<Text>().text = roboter.name;
         Datas.ToFocusRobot[index] = toFocus.GetComponent<Toggle>();
         Datas.ToShowKs[index] = toKs.GetComponent<Toggle>();
         Datas.ShowKs[index] = false;
+        GameObject toTraj = GameObject.Instantiate(Datas.TogglePrefab, Datas.GroupToShowTraj.transform);
+        toTraj.GetComponent<Toggle>().isOn = false;
+        toTraj.name = "toShowTraj_" + roboter.name;
+        toTraj.GetComponentInChildren<Text>().text = roboter.name;
+        Datas.ToShowTraj[index] = toTraj.GetComponent<Toggle>();
+        Datas.ShowTraj[index] = false;
     }
 
     public void SetValues()
@@ -134,22 +144,22 @@ public class RoboterData
 
     private GameObject SpawnTea()
     {
-        return GameObject.Instantiate(datas.RobotPrefabs[0]);
+        return GameObject.Instantiate(Datas.RobotPrefabs[0]);
     }
     private GameObject SpawnTed()
     {
-        return GameObject.Instantiate(datas.RobotPrefabs[1]);
+        return GameObject.Instantiate(Datas.RobotPrefabs[1]);
     }
     private GameObject SpawnTim()
     {
-        return GameObject.Instantiate(datas.RobotPrefabs[2]);
+        return GameObject.Instantiate(Datas.RobotPrefabs[2]);
     }
     private GameObject SpawnTod()
     {
-        return GameObject.Instantiate(datas.RobotPrefabs[3]);
+        return GameObject.Instantiate(Datas.RobotPrefabs[3]);
     }
     private GameObject SpawnTom()
     {
-        return GameObject.Instantiate(datas.RobotPrefabs[4]);
+        return GameObject.Instantiate(Datas.RobotPrefabs[4]);
     }
 }

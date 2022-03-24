@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class SaveSettings : MonoBehaviour
 {
-    [SerializeField] private Datas data;
-
     private void Start()
     {
         bool[] showKse = new bool[Datas.Robots.Length];
@@ -16,6 +14,7 @@ public class SaveSettings : MonoBehaviour
         }
         Datas.ShowKs = showKse;
         SetCamSpeed();
+        GameObject.Find("ScToggle").GetComponent<Scroll>().Init();
         //OnBuSaveSettings();
     }
 
@@ -28,13 +27,13 @@ public class SaveSettings : MonoBehaviour
 
     private void SetCamSpeed()
     {
-        data.CamSpeed = 10;
+        Datas.CamSpeed = 10;
     }
 
     private void SetKS()
     {
-        Toggle[] ks = data.GroupToShowKs.GetComponentsInChildren<Toggle>();
-        Debug.Log("ksLength: " + ks.Length + " RobotsLength: " + Datas.Robots.Length + " CamLength: " + data.GroupToZoomRobot.GetComponentsInChildren<Toggle>().Length);
+        Toggle[] ks = Datas.GroupToShowKs.GetComponentsInChildren<Toggle>();
+        Debug.Log("ksLength: " + ks.Length + " RobotsLength: " + Datas.Robots.Length + " CamLength: " + Datas.GroupToZoomRobot.GetComponentsInChildren<Toggle>().Length);
         List<int> indexKs = new List<int>();
         List<int> indexRoboter = new List<int>();
         for (int i = 0; i < ks.Length; i++)
@@ -66,7 +65,7 @@ public class SaveSettings : MonoBehaviour
 
     private void SetCamFocus()
     {
-        Toggle[] focus = data.GroupToZoomRobot.GetComponentsInChildren<Toggle>();
+        Toggle[] focus = Datas.GroupToZoomRobot.GetComponentsInChildren<Toggle>();
         int indexFocus = 0;
         int indexRoboter = 0;
         while (indexFocus < focus.Length) 
@@ -100,7 +99,7 @@ public class SaveSettings : MonoBehaviour
     {
         Vector3 pos = Datas.Robots[index].GetComponentInChildren<UrdfRobot>().transform.position;
         Vector3 rot = new Vector3(45, 180, 0);
-        data.Cam.transform.rotation = Quaternion.Euler(rot);
-        data.Cam.transform.position = pos - 10 * data.Cam.transform.forward;
+        Datas.Cam.transform.rotation = Quaternion.Euler(rot);
+        Datas.Cam.transform.position = pos - 10 * Datas.Cam.transform.forward;
     }
 }
