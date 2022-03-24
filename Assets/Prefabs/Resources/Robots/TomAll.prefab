@@ -577,7 +577,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 1.2999998, z: 0.000000059604645}
+  m_ConnectedAnchor: {x: 0, y: 1.2999998, z: 0}
   m_UseSpring: 0
   m_Spring:
     spring: 0
@@ -1720,7 +1720,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 1.045, z: 0.50000006}
+  m_ConnectedAnchor: {x: 0, y: 1.045, z: 0.5}
   m_UseSpring: 0
   m_Spring:
     spring: 0
@@ -6610,7 +6610,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   robot: {fileID: 4213422740357239489}
-  datas: {fileID: 0}
   update: 0
 --- !u!1 &7713204382883946763
 GameObject:

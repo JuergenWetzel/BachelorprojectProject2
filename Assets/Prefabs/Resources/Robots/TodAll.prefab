@@ -9989,7 +9989,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   robot: {fileID: 6954583255561768104}
-  datas: {fileID: 0}
   update: 0
 --- !u!1 &8706796901566972965
 GameObject:

@@ -26,6 +26,10 @@ public class KsEditMode : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Überprüft, ob für ein Roboter neue Ks erstellt werden müssen oder nicht
+    /// </summary>
+    /// <returns>True, wenn der referenzierte Roboter sich ändert</returns>
     private bool RobotChanged()
     {
         if (robot != null)
@@ -44,24 +48,10 @@ public class KsEditMode : MonoBehaviour
         return false;
     }
 
-    private UrdfJoint[] NotFixedJoints(UrdfRobot urdfRobot)
-    {
-        UrdfJoint[] allJoints = urdfRobot.gameObject.GetComponentsInChildren<UrdfJoint>();
-        List<UrdfJoint> joints = new List<UrdfJoint>();
-        foreach (UrdfJoint joint in allJoints)
-        {
-            if (joint.JointType != UrdfJoint.JointTypes.Fixed) 
-            {
-                joints.Add(joint);
-            }
-        }
-        return joints.ToArray();
-    }
-
     private void SpawnKS()
     {
         arrows = GetComponentsInChildren<Arrows>();
-        joints = NotFixedJoints(robot);
+        joints = Roboter.NotFixedJoints(robot);
         int diff = joints.Length - arrows.Length;
         while (diff != 0) 
         {

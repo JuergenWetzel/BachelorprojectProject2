@@ -425,7 +425,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a489864aa92e0b345a7c6666e51f5b6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 622390324}
 --- !u!114 &622390319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,7 +437,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dceae90490f053240b46e8fe7a5ba68c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  datas: {fileID: 622390324}
 --- !u!114 &622390320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,7 +449,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0456b543a52ed54082bd6759157e48a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  datas: {fileID: 622390324}
 --- !u!114 &622390321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -604,20 +601,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721cd44e0be71504d8a95bc834aaff80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 2123254319}
-  robotPrefabs:
+  camField: {fileID: 2123254319}
+  roboterPrefabsField:
   - {fileID: 3906199186279758059, guid: 439cc50f5ddabdf41910afb20e6de048, type: 3}
   - {fileID: 5776066930560186259, guid: 3fe8d62049bd3a2489b76e32a9a0be2b, type: 3}
   - {fileID: 3592257449807537487, guid: 5cf6b239140e78d42bd05d4153483f4a, type: 3}
   - {fileID: 4375151321328404598, guid: d9c7e0e0a9f6181488702223f50205bf, type: 3}
   - {fileID: 5823066596412673318, guid: 192469d0c62b475428eecf2cf5868d83, type: 3}
-  playerInput: {fileID: 622390321}
-  togglePrefab: {fileID: 165635289339673900, guid: b199a6cc356348d4abf1673bf58dd460, type: 3}
-  slCamSpeed: {fileID: 648658737}
-  gui: {fileID: 1534104306}
-  groupToZoomRobot: {fileID: 1693333262}
-  groupToShowKs: {fileID: 669425804}
-  groupToShowTraj: {fileID: 333188878}
+  playerInputField: {fileID: 622390321}
+  togglePrefabField: {fileID: 165635289339673900, guid: b199a6cc356348d4abf1673bf58dd460, type: 3}
+  slCamSpeedField: {fileID: 648658737}
+  guiField: {fileID: 1534104306}
+  groupToZoomRobotField: {fileID: 1693333262}
+  groupToShowKsField: {fileID: 669425804}
+  groupToShowTrajField: {fileID: 333188878}
 --- !u!1 &633792981
 GameObject:
   m_ObjectHideFlags: 0
