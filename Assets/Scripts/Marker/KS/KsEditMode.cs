@@ -7,8 +7,6 @@ public class KsEditMode : MonoBehaviour
 {
     [SerializeField] private UrdfRobot robot;
     private UrdfRobot oldRobot;
-    private Arrows[] arrows;
-    private UrdfJoint[] joints;
     [SerializeField] private bool update;
 
     private void Start()
@@ -48,10 +46,14 @@ public class KsEditMode : MonoBehaviour
         return false;
     }
 
+
+    /// <summary>
+    /// Passt die Anzahl der Koordinatensysteme an den Roboter an und ordnet sie den beweglichen Gelenken des Roboters zu
+    /// </summary>
     private void SpawnKS()
     {
-        arrows = GetComponentsInChildren<Arrows>();
-        joints = Roboter.NotFixedJoints(robot);
+        Arrows[] arrows = GetComponentsInChildren<Arrows>();
+        UrdfJoint[] joints = Roboter.NotFixedJoints(robot);
         int diff = joints.Length - arrows.Length;
         while (diff != 0) 
         {

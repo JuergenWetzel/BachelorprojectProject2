@@ -15,8 +15,6 @@ public class CamMovement : MonoBehaviour
     private Vector2 move;
     private float scroll;
     private ActiveState activeState;
-    private Vector3 deltaPos;
-    private Vector3 deltaRot; 
 
     // Start is called before the first frame update
     void Start()
@@ -25,37 +23,43 @@ public class CamMovement : MonoBehaviour
     }
 
     // Update is called once per frame
+    /// <summary>
+    /// Wählt die Bewegungsart der Kamera in diesem Frame aus. Anschließend wird die Kamera entsprechend bewegt.
+    /// </summary>
     void Update()
     {
-        deltaRot = Vector3.zero;
-        deltaPos = Vector3.zero;
+        Vector3 deltaPos = Vector3.zero;
         switch (activeState)
         {
             case ActiveState.Nothing:
                 break;
             case ActiveState.Zoom:
-                Zoom();
+                deltaPos = Zoom();
                 break;
             case ActiveState.ZoomScroll:
-                ZoomScroll();
+                deltaPos = ZoomScroll();            
                 break;
             case ActiveState.Turn:
-                Turn();
+                Vector3 deltaRot = Turn();                
+                Datas.Cam.transform.Rotate(deltaRot * Time.deltaTime * Datas.CamSpeed);
+                Datas.Cam.transform.rotation = Quaternion.Euler(Datas.Cam.transform.rotation.eulerAngles.x, Datas.Cam.transform.rotation.eulerAngles.y, 0);
                 break;
             case ActiveState.Move:
-                Move();
+                deltaPos = Move();
                 break;
             default:
-                break;
+                throw new MissingReferenceException("Kein Status ausgewählt");
         }
-        if (activeState != ActiveState.Nothing)
+        if (activeState != ActiveState.Nothing && activeState != ActiveState.Turn)
         {
             Datas.Cam.transform.position += deltaPos * Time.deltaTime * Datas.CamSpeed;
-            Datas.Cam.transform.Rotate(deltaRot * Time.deltaTime * Datas.CamSpeed);
-            Datas.Cam.transform.rotation = Quaternion.Euler(Datas.Cam.transform.rotation.eulerAngles.x, Datas.Cam.transform.rotation.eulerAngles.y, 0);
         }
     }
 
+    /// <summary>
+    /// Auswahl der aktiven Kamera
+    /// </summary>
+    /// <param name="callbackContext"></param>
     public void OnCamMovement(InputAction.CallbackContext callbackContext)
     {
         if (callbackContext.action.name == "Move")
@@ -96,22 +100,41 @@ public class CamMovement : MonoBehaviour
         }
     }
 
-    private void Move()
+    /// <summary>
+    /// Bewegt die Kamera nach links, rechts, oben oder unten
+    /// </summary>
+    /// <returns>Vector3 mit Bewegungsrichtung</returns>
+    private Vector3 Move()
     {
-        deltaPos += Datas.Cam.transform.right * move.x + Datas.Cam.transform.up * move.y;
+        return Datas.Cam.transform.right * move.x + Datas.Cam.transform.up * move.y;
     }
-    private void Turn()
+
+    /// <summary>
+    /// Dreht die Kamera gemäß der Mausbewegung
+    /// </summary>
+    /// <returns>Vector3 mit Drehrichtung</returns>
+    private Vector3 Turn()
     {
         mouseDelta = Mouse.current.delta.ReadValue();
-        deltaRot += new Vector3(mouseDelta.y, -mouseDelta.x, 0);
+        return new Vector3(mouseDelta.y, -mouseDelta.x, 0);
     }
-    private void Zoom()
+
+    /// <summary>
+    /// Bewegt die Kamera vorwärts oder rückwärts gemäß der Mausbewegung
+    /// </summary>
+    /// <returns>Vector3 mit Bewegungsrichtung</returns>
+    private Vector3 Zoom()
     {
         mouseDelta = Mouse.current.delta.ReadValue();
-        deltaPos += Datas.Cam.transform.forward * mouseDelta.y;
+        return Datas.Cam.transform.forward * mouseDelta.y;
     }
-    private void ZoomScroll()
+
+    /// <summary>
+    /// Bewegt die Kamera vorwärts oder rückwärts gemäß dem Mausrad
+    /// </summary>
+    /// <returns>Vector3 mit Bewegungsrichtung</returns>
+    private Vector3 ZoomScroll()
     {
-        deltaPos += Datas.Cam.transform.forward * scroll / 10;
+        return Datas.Cam.transform.forward * scroll / 10;
     }
 }

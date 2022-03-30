@@ -615,6 +615,7 @@ MonoBehaviour:
   groupToZoomRobotField: {fileID: 1693333262}
   groupToShowKsField: {fileID: 669425804}
   groupToShowTrajField: {fileID: 333188878}
+  trajPrefabField: {fileID: 0}
 --- !u!1 &633792981
 GameObject:
   m_ObjectHideFlags: 0

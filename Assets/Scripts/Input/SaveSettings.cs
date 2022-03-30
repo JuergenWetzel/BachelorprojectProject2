@@ -13,21 +13,19 @@ public class SaveSettings : MonoBehaviour
             showKse[i] = false;
         }
         Datas.ShowKs = showKse;
-        SetCamSpeed();
+        Roboter.SetCamSpeed();
         GameObject.Find("ScToggle").GetComponent<Scroll>().Init();
         //OnBuSaveSettings();
     }
 
+    /// <summary>
+    /// Vom Button aufgerufene Methode zum Speichern der Einstellungen
+    /// </summary>
     public void OnBuSaveSettings()
     {
         SetCamFocus();
-        SetCamSpeed();
+        Roboter.SetCamSpeed();
         SetKS();
-    }
-
-    private void SetCamSpeed()
-    {
-        Datas.CamSpeed = 10;
     }
 
     private void SetKS()

@@ -12,6 +12,9 @@ public class GuiSettings : MonoBehaviour
         Datas.Gui.SetActive(activeGui);
     }
 
+    /// <summary>
+    /// Aktiviert/Deaktiviert das Gui und Deaktiviert/Aktiviert damit die Kamerasteuerung
+    /// </summary>
     public void OnOpenGui()
     {
         activeGui = !activeGui;
@@ -27,6 +30,11 @@ public class GuiSettings : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Wenn das Gui mittels Tasten geöffnet wird wird diese Methode aufgerufen. 
+    /// Stelle sicher, dass die Funktion nur einmal und nicht dreimal aufgerufen wird.
+    /// </summary>
+    /// <param name="callbackContext"></param>
     public void OnOpenGui(InputAction.CallbackContext callbackContext)
     {
         if (callbackContext.started)

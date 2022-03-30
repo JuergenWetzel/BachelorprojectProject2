@@ -20,6 +20,8 @@ public class Datas : MonoBehaviour
     [SerializeField] private GameObject groupToZoomRobotField;
     [SerializeField] private GameObject groupToShowKsField;
     [SerializeField] private GameObject groupToShowTrajField;
+    [SerializeField] private GameObject trajPrefabField;
+    private static GameObject trajPrefab;
     private static GameObject togglePrefab;
     private static Slider slCamSpeed;
     private static GameObject gui;
@@ -127,4 +129,8 @@ public class Datas : MonoBehaviour
     /// Liste der Werte der Toggle, ob die Trajektorie angezeigt wird
     /// </summary>
     public static bool[] ShowTraj { get => showTraj; set => showTraj = value; }
+    /// <summary>
+    /// Prefab für die Trajektorie
+    /// </summary>
+    public static GameObject TrajPrefab { get => trajPrefab; }
 }
