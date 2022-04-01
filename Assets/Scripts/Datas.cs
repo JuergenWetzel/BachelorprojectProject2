@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+/// <summary>
+/// Verweis auf wichtige GameObjects etc.
+/// 
+/// SerializeField erlaubt immer vorhandene Objekte im Editor auszuwählen, allerdings sind diese dann nicht static
+/// Um auf alle Objekte zuzugreifen werden die Werte in der Awake Funktion in static Variablen kopiert
+/// </summary>
 public class Datas : MonoBehaviour
 {
     [SerializeField] private GameObject camField;
@@ -51,6 +57,7 @@ public class Datas : MonoBehaviour
         groupToShowKs = groupToShowKsField;
         groupToShowTraj = groupToShowTrajField;
         groupToZoomRobot = groupToZoomRobotField;
+        trajPrefab = trajPrefabField;
     }
 
     /// <summary>

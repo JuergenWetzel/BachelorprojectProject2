@@ -3,16 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Wird einmal in der Szene benötigt und liest die Einstellungen im GUI aus, wenn es geschlossen wird.
+/// </summary>
 public class SaveSettings : MonoBehaviour
 {
+    /// <summary>
+    /// Standardwerte:
+    ///     Alle Koordinatensysteme aus
+    ///     Kamerageschwindigkeit einstellen
+    ///     
+    /// </summary>
     private void Start()
     {
-        bool[] showKse = new bool[Datas.Robots.Length];
-        for (int i = 0; i < showKse.Length; i++)
+        bool[] show = new bool[Datas.Robots.Length];
+        for (int i = 0; i < show.Length; i++)
         {
-            showKse[i] = false;
+            show[i] = false;
         }
-        Datas.ShowKs = showKse;
+        Datas.ShowKs = show;
+        Datas.ShowTraj = show;
         Roboter.SetCamSpeed();
         GameObject.Find("ScToggle").GetComponent<Scroll>().Init();
         //OnBuSaveSettings();
@@ -25,77 +35,61 @@ public class SaveSettings : MonoBehaviour
     {
         SetCamFocus();
         Roboter.SetCamSpeed();
-        SetKS();
+        SetVisualisierung<Trajektorie>(Datas.GroupToShowTraj);
+        SetVisualisierung<KsEditMode>(Datas.GroupToShowKs);
     }
 
-    private void SetKS()
+    /// <summary>
+    /// Aktiviert oder deaktiviert Visualisierungen gemäß deren Toggle
+    /// </summary>
+    /// <typeparam name="T">Klasse, welche den Parent der Visualisierung eindeutig referenziert</typeparam>
+    /// <param name="toggleGroup">Parent der Toggle für diese Visualisierung</param>
+    private void SetVisualisierung<T>(GameObject toggleGroup) where T : MonoBehaviour
     {
-        Toggle[] ks = Datas.GroupToShowKs.GetComponentsInChildren<Toggle>();
-        Debug.Log("ksLength: " + ks.Length + " RobotsLength: " + Datas.Robots.Length + " CamLength: " + Datas.GroupToZoomRobot.GetComponentsInChildren<Toggle>().Length);
-        List<int> indexKs = new List<int>();
-        List<int> indexRoboter = new List<int>();
-        for (int i = 0; i < ks.Length; i++)
+        Toggle[] toggles = toggleGroup.GetComponentsInChildren<Toggle>();
+        for (int i = 0; i < toggles.Length; i++)
         {
-            if (ks[i].isOn)
+            if (toggles[i].isOn)
             {
-                indexKs.Add(i);
-            }
-            Datas.Robots[i].GetComponentInChildren<KsEditMode>(true).gameObject.SetActive(false);
-            //Debug.Log(Datas.Robots[i].GetComponentInChildren<KsEditMode>().gameObject.activeSelf);
-        }
-        foreach (int index in indexKs)
-        {
-            int i = 0;
-            while (i < ks.Length) 
+                Datas.Robots[i].GetComponentInChildren<T>(true).gameObject.SetActive(true);
+            } else
             {
-                if (ks[index].gameObject.name.Contains(Datas.Robots[i].name)) 
-                {
-                    indexRoboter.Add(i);
-                }
-                i++;
+                Datas.Robots[i].GetComponentInChildren<T>(true).gameObject.SetActive(false);
             }
-        }
-        foreach (int index in indexRoboter)
-        {
-            Datas.Robots[index].GetComponentInChildren<KsEditMode>(true).gameObject.SetActive(true);
         }
     }
 
+    /// <summary>
+    /// Fokussiert den ausgewählten Roboter
+    /// 
+    /// Liest alle Toggle für das Fokussieren eines Roboters aus, sobald einer aktiv ist wird die weitere Suche abgebrochen. Übergibt den Roboter MoveCam
+    /// </summary>
     private void SetCamFocus()
     {
         Toggle[] focus = Datas.GroupToZoomRobot.GetComponentsInChildren<Toggle>();
-        int indexFocus = 0;
-        int indexRoboter = 0;
-        while (indexFocus < focus.Length) 
+        int index = 0;
+        while (index < focus.Length) 
         {
-            if (focus[indexFocus].isOn)
+            if (focus[index].isOn)
             {
+                MoveCam(Datas.Robots[index].GetComponentInChildren<UrdfRobot>().gameObject);
                 break;
             } else
             {
-                indexFocus++;
+                index++;
             }
-        }
-        if (indexFocus<focus.Length)
-        {
-            while (indexRoboter<focus.Length)
-            {
-                //Debug.Log(focus[indexFocus].gameObject.name + "    " + Datas.Robots[indexRoboter].name);
-                if (focus[indexFocus].gameObject.name.Contains(Datas.Robots[indexRoboter].name)) 
-                {
-                    break;
-                } else
-                {
-                    indexRoboter++;
-                }
-            }
-            MoveCam(indexRoboter);
         }
     }
 
-    private void MoveCam(int index)
+    /// <summary>
+    /// Fokussiert das übergebene Objekt.
+    /// 
+    /// Das übergebene Objekt wird von vorne oben beobachtet
+    /// </summary>
+    /// <param name="focusObject">Zu fokussierendes Objekt</param>
+    private void MoveCam(GameObject focusObject)
     {
-        Vector3 pos = Datas.Robots[index].GetComponentInChildren<UrdfRobot>().transform.position;
+        Vector3 pos = focusObject.transform.position;
         Vector3 rot = new Vector3(45, 180, 0);
         Datas.Cam.transform.rotation = Quaternion.Euler(rot);
         Datas.Cam.transform.position = pos - 10 * Datas.Cam.transform.forward;

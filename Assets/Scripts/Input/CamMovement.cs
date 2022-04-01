@@ -1,6 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Kamerasteuerung
+/// 
+/// Wird von den unterschiedlichen Acions aufgerufen um die Kamera zu bewegen
+/// </summary>
 public class CamMovement : MonoBehaviour
 {
     private enum ActiveState
@@ -16,7 +21,9 @@ public class CamMovement : MonoBehaviour
     private float scroll;
     private ActiveState activeState;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Starteinstellungen. Setzt aktiven Kameramodus auf nichts
+    /// </summary>
     void Start()
     {
         activeState = ActiveState.Nothing;

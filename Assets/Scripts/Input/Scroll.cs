@@ -3,13 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Für die Scrollbar, wenn mehr als 15 Roboter im GUI aufgelistet werden müssten
+/// </summary>
 public class Scroll : MonoBehaviour
 {
     private float[] splits;
     private Scrollbar scrollbar;
     private int steps;
-    // Start is called before the first frame update
-    void Start()
+
+    /// <summary>
+    /// Starteinstellungen:
+    /// 
+    /// Wenn mehr als 15 Roboter vorhanden sind wird die Scrollbar erstellt.    
+    /// Unterteilt die Bereiche der Scrollbar gleichmäßig entsprechend den zu vielen Roboters
+    /// </summary>
+    public void Init()
     {
         scrollbar = GetComponent<Scrollbar>();
         float size = 15f / Datas.ToFocusRobot.Length;
@@ -26,20 +35,16 @@ public class Scroll : MonoBehaviour
             splits[i] = 1f / splits.Length * (i + 1f);
         }
         splits[splits.Length - 1] = 1;
-        string debug = "";
-        for (int i = 0; i < splits.Length; i++)
-        {
-            debug += splits[i] + " ";
-        }
-        Debug.Log(debug);
         OnChange(0.0f);
     }
 
-    public void Init()
-    {
-        Start();
-    }
-
+    /// <summary>
+    /// Wird aufgerufen, wenn die Scrollbar im GUI bewegt wird.
+    /// 
+    /// Durch Vergleich mit der Unterteilung aus Init wird der erste angezeigte Toggle bestimmt, die 15 nächsten Toggle werden automatisch auch angezeigt, der Rest nicht.
+    /// Es muss davor überprüft werden, ob mehr als 15 Toggle existieren, ansonsten wird eine Exception geworfen
+    /// </summary>
+    /// <param name="value">Position der Scrollbar</param>
     public void OnChange(float value)
     {
         int pos = 0;
@@ -71,11 +76,5 @@ public class Scroll : MonoBehaviour
             Datas.ToFocusRobot[i].gameObject.SetActive(false);
             Datas.ToShowTraj[i].gameObject.SetActive(false);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

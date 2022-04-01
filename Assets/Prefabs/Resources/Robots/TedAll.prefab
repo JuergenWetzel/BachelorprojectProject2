@@ -939,7 +939,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &7800365411854482020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1739,7 +1739,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &4518772064101788812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2670,7 +2670,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &8891578040901285401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6002,7 +6002,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &5821185836943908267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6274,7 +6274,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &4373999371271621321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7521,6 +7521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b411a8e4bf9e98f4d8088a39ba37989d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  robot: {fileID: 6318951056445345483}
 --- !u!1 &3090977639885777871
 GameObject:
   m_ObjectHideFlags: 0
@@ -8749,7 +8750,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &3250661855618553561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9115,7 +9116,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &2292688574860248754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12395,7 +12396,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &3202246886978056219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13635,7 +13636,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &1980642644097332805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14949,7 +14950,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &2659165342958261395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15192,6 +15193,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2977514130939703932}
   - component: {fileID: 4959677679727798677}
+  - component: {fileID: 5311302822342471244}
   m_Layer: 0
   m_Name: ted
   m_TagString: Untagged
@@ -15228,6 +15230,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FilePath: 
+--- !u!114 &5311302822342471244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6318951056445345483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d41d28e4a46494ea8ec948ee4f5abd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6324513582659182789
 GameObject:
   m_ObjectHideFlags: 0
@@ -15402,7 +15416,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &3275595725269118575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16856,7 +16870,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &5739354357060126106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17406,7 +17420,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &7291617354882381779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18283,7 +18297,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &7758686940460678992
 MonoBehaviour:
   m_ObjectHideFlags: 0

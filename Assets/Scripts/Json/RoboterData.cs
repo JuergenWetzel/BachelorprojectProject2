@@ -6,160 +6,152 @@ using System;
 using RosSharp.Urdf;
 using UnityEngine.UI;
 
+/// <summary>
+/// Alle aus JSON übergebenen Parameter für die Roboter werden hier für die Initialisierung zwischengespeichert.
+/// </summary>
 [Serializable]
 public class RoboterData
 {
     public string type;
-    public string Type;
+    public string typ;
     public string ip;
-    public string IP;
-    public string Ip;
-    public string Port;
     public string port;
     public string name;
-    public string Name;
     public Vector3 position;
-    public Vector3 Position;
-    public Vector3 Rotation;
     public Vector3 rotation;
-    public string Namespace;
     private GameObject roboter;
     private RosConnector rosConnector;
     public string space;
+    private enum ToggleTyp
+    {
+        Trajektorie, Koordinatensystem, Fokus
+    }
 
+    /// <summary>
+    /// Erstellt den Roboter gemäß den Anforderungen oben
+    /// 
+    /// Die Position des Roboters und der Toggle in den Arrays in Datas ist immer index
+    /// </summary>
+    /// <param name="index"></param>
     public void Init(int index)
+    {
+        SetValues();
+        ControlNamespace();
+        roboter = Spawn();
+        Debug.Log(position + ", " + rotation);
+        Datas.Robots[index] = roboter;
+        roboter.transform.SetPositionAndRotation(Vector3.zero, Quaternion.Euler(Vector3.zero));
+        roboter.GetComponentInChildren<UrdfRobot>().gameObject.transform.SetPositionAndRotation(position, Quaternion.Euler(rotation));
+        roboter.name = name;
+        SetupRosConnector();
+        CreateToggles(index, ToggleTyp.Trajektorie);
+        CreateToggles(index, ToggleTyp.Koordinatensystem);
+        CreateToggles(index, ToggleTyp.Fokus);
+    }
+
+    /// <summary>
+    /// Wenn der ROS Namespace noch kein Schrägstrich vorangestellt hat wird dieser hier hinzugefügt. 
+    /// 
+    /// Für die Verwendung als Name in der Simulation hat dies keine Auswirkungen
+    /// </summary>
+    private void ControlNamespace()
     {
         if (space.IndexOf('/') != 0)
         {
             space = "/" + space;
         }
-        Debug.Log("init Robot Nr. " + index);
-        Namespace = space;
-        //SetValues();
-        roboter = Spawn();
-        Debug.Log(position + ", " + rotation);
-        Datas.Robots[index] = roboter;
-        roboter.tag = "Roboter";
-        roboter.transform.SetPositionAndRotation(Vector3.zero, Quaternion.Euler(Vector3.zero));
-        roboter.GetComponentInChildren<UrdfRobot>().gameObject.transform.SetPositionAndRotation(position, Quaternion.Euler(rotation));
-        roboter.name = name;
-        SetupRosConnector();
-        CreateToggles(index);
     }
 
+    /// <summary>
+    /// Weist dem Ros Connector des Roboters die entsprechenden Werte zu
+    /// </summary>
     private void SetupRosConnector()
     {
         rosConnector = roboter.GetComponentInChildren<RosConnector>();
         rosConnector.RosBridgeServerUrl = @"ws://" + ip;
-        rosConnector.GetComponent<JointStateSubscriber>().Topic = Namespace + "/joint_states";
+        rosConnector.GetComponent<JointStateSubscriber>().Topic = space + "/joint_states";
     }
 
-    private void CreateToggles(int index)
+    /// <summary>
+    /// Erstellt Toggle für den Roboter
+    /// 
+    /// Benennt die Toggle nach dem Roboter und dem Verwendungszweck des Roboters, legt danach auch den Parent fest und setzt seinen Standardwert auf false
+    /// Beim Toggle zum Fokussieren wird er zustätzlich in einer Gruppe zusammengefasst, damit nur einer gleichzeitig aktiv sein kann.
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="toggleTyp"></param>
+    private void CreateToggles(int index, ToggleTyp toggleTyp)
     {
-        GameObject toFocus = GameObject.Instantiate(Datas.TogglePrefab, Datas.GroupToZoomRobot.transform);
-        toFocus.GetComponent<Toggle>().group = Datas.GroupToZoomRobot.GetComponent<ToggleGroup>();
-        toFocus.GetComponent<Toggle>().isOn = false;
-        toFocus.name = "toFocus_" + roboter.name;
-        toFocus.GetComponentInChildren<Text>().text = roboter.name;
-        GameObject toKs = GameObject.Instantiate(Datas.TogglePrefab, Datas.GroupToShowKs.transform);
-        toKs.GetComponent<Toggle>().group = Datas.GroupToShowKs.GetComponent<ToggleGroup>();
-        toKs.GetComponent<Toggle>().isOn = false;
-        toKs.name = "toShowKs_" + roboter.name;
-        toKs.GetComponentInChildren<Text>().text = roboter.name;
-        Datas.ToFocusRobot[index] = toFocus.GetComponent<Toggle>();
-        Datas.ToShowKs[index] = toKs.GetComponent<Toggle>();
-        Datas.ShowKs[index] = false;
-        GameObject toTraj = GameObject.Instantiate(Datas.TogglePrefab, Datas.GroupToShowTraj.transform);
-        toTraj.GetComponent<Toggle>().isOn = false;
-        toTraj.name = "toShowTraj_" + roboter.name;
-        toTraj.GetComponentInChildren<Text>().text = roboter.name;
-        Datas.ToShowTraj[index] = toTraj.GetComponent<Toggle>();
-        Datas.ShowTraj[index] = false;
+        GameObject toggle = GameObject.Instantiate(Datas.TogglePrefab);
+        toggle.GetComponentInChildren<Text>().text = roboter.name;
+        toggle.GetComponent<Toggle>().isOn = false;
+
+        string toggleName;
+        GameObject parent;
+        switch (toggleTyp)
+        {
+            case ToggleTyp.Trajektorie:
+                toggleName = "toShowTraj_";
+                parent = Datas.GroupToShowTraj;
+                Datas.ToShowTraj[index] = toggle.GetComponent<Toggle>();
+                break;
+            case ToggleTyp.Koordinatensystem:
+                toggleName = "toShowKs_";
+                parent = Datas.GroupToShowKs;
+                Datas.ToShowKs[index] = toggle.GetComponent<Toggle>();
+                break;
+            case ToggleTyp.Fokus:
+                toggleName = "toFocus_";
+                parent = Datas.GroupToZoomRobot;
+                Datas.ToFocusRobot[index] = toggle.GetComponent<Toggle>();
+                toggle.GetComponent<Toggle>().group = parent.GetComponent<ToggleGroup>();
+                break;
+            default:
+                throw new MissingReferenceException("Es ist nicht festgelegt, wofür der Toggle benötigt wird");
+        }
+        toggle.name = toggleName + roboter.name;
+        toggle.transform.SetParent(parent.transform, false);
     }
 
+    /// <summary>
+    /// Verarbeitet, ob die optionalen Parameter name und port gesetzt sind und wie der typ geschrieben ist
+    /// </summary>
     public void SetValues()
     {
-        if (type == null)
-        {
-            type = Type;
-        }
-        type = type.ToLower();
-        if (ip == null)
-        {
-            if (Ip == null) 
-            {
-                ip = IP;
-            } else
-            {
-                ip = Ip;
-            }
-        }
-        if (port != null)
-        {
-            ip += ":" + port;
-        } else if (Port != null)
-        {
-            ip += ":" + Port;
-        }
         if (name == null)
         {
-            if (Name!=null)
-            {
-                name = Name;
-            }
-            else
-            {
-                name = Namespace;
-            }
+            name = space;
         }
-        if (Position != Vector3.zero)
+        if (port != null) 
         {
-            position = Position;
+            ip += ":" + port;
         }
-        if (rotation == Vector3.zero) 
+        if (type == null)
         {
-            rotation = Rotation;
+            type = typ;
         }
-
     }
 
+    /// <summary>
+    /// Erstellt den Roboter entsprechend seinem Typ
+    /// </summary>
+    /// <returns></returns>
     public GameObject Spawn()
     {
         switch (type)
         {
             case "tea":
-                return SpawnTea();
+                return GameObject.Instantiate(Datas.RobotPrefabs[0]);
             case "ted":
-                return SpawnTed();
+                return GameObject.Instantiate(Datas.RobotPrefabs[1]);
             case "tim":
-                return SpawnTim();
+                return GameObject.Instantiate(Datas.RobotPrefabs[2]);
             case "tod":
-                return SpawnTod();
+                return GameObject.Instantiate(Datas.RobotPrefabs[3]);
             case "tom":
-                return SpawnTom();
+                return GameObject.Instantiate(Datas.RobotPrefabs[4]);
             default:
                 throw new MissingReferenceException("ungültiger Type");
         }
-    }
-
-    private GameObject SpawnTea()
-    {
-        return GameObject.Instantiate(Datas.RobotPrefabs[0]);
-    }
-    private GameObject SpawnTed()
-    {
-        return GameObject.Instantiate(Datas.RobotPrefabs[1]);
-    }
-    private GameObject SpawnTim()
-    {
-        return GameObject.Instantiate(Datas.RobotPrefabs[2]);
-    }
-    private GameObject SpawnTod()
-    {
-        return GameObject.Instantiate(Datas.RobotPrefabs[3]);
-    }
-    private GameObject SpawnTom()
-    {
-        return GameObject.Instantiate(Datas.RobotPrefabs[4]);
     }
 }

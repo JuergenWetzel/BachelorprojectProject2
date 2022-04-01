@@ -8,7 +8,7 @@ public class PathChange : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        Pfad.Path = Application.dataPath + "/Beschreibung.json";
+        Pfad.Path = @"C:\Users\juerg\Documents\UnityProjects\Bachelorarbeit\Beschreibung.json";
         inputField.text = Pfad.Path;
     }
 

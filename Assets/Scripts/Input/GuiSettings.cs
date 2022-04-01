@@ -1,11 +1,17 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Verantwortlich für die Sichtbarkeit des GUIs und welche Actions gerade benutzt werden
+/// </summary>
 public class GuiSettings : MonoBehaviour
 {
     private bool activeGui;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Standardeinstellungen: 
+    ///     Gui deaktiviert
+    /// </summary>
     void Start()
     {
         activeGui = false;
@@ -32,7 +38,7 @@ public class GuiSettings : MonoBehaviour
 
     /// <summary>
     /// Wenn das Gui mittels Tasten geöffnet wird wird diese Methode aufgerufen. 
-    /// Stelle sicher, dass die Funktion nur einmal und nicht dreimal aufgerufen wird.
+    /// Stellt sicher, dass die Funktion nur einmal und nicht dreimal aufgerufen wird.
     /// </summary>
     /// <param name="callbackContext"></param>
     public void OnOpenGui(InputAction.CallbackContext callbackContext)

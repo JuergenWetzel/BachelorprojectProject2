@@ -3,11 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+/// <summary>
+/// Hilfsklasse, um anstatt eines Gameobject ein Array aus dem json String auszulesen
+/// </summary>
+/// <typeparam name="T"></typeparam>
 public class JsonHelper<T>
 {
     public T[] array;
 
-    private static string ToLowerCase(string json, string oldWord, string newWord)
+    /// <summary>
+    /// Konvertiert den ganzen Text mit Ausnahme von oldWord in Kleinbuchstaben, ersetzt dabei oldWord durch newWord
+    /// </summary>
+    /// <param name="json">String aus JSON Dokument</param>
+    /// <param name="oldWord">zu ersetzender Variablenname in JSON, der entsprechende Wert wird nicht Kleingeschrieben</param>
+    /// <param name="newWord">ersetzt oldWord im JSON String</param>
+    /// <returns>JSON String, allerdings bis auf oldWord in Kleinbuchstaben konvertiert</returns>
+    public static string ToLowerCase(string json, string oldWord, string newWord)
     {   
         string jsonNeu = json.ToLower();
         int index =jsonNeu.IndexOf(oldWord);
@@ -29,50 +40,21 @@ public class JsonHelper<T>
         return jsonNeu;
     }
 
-    private static int[] AllIndexOf(string json, string value)
-    {
-        List<int> index = new List<int>();
-        index.Add(0);
-        while (true)
-        {
-            int position = json.IndexOf(value, index[index.Count - 1] + 1);
-            if (position == -1) 
-            {
-                break;
-            }
-            index.Add(position);
-        }
-        index.RemoveAt(0);
-        if (index.Count==0)
-        {
-            index.Add(-1);
-        }
-        return index.ToArray();
-    }
-
+    /// <summary>
+    /// Erstellt einen Array von seiner JSON Repräsentation
+    /// 
+    /// Nutzt dazu einen Wrapper und JsonUtility.FromJson(string json). Konvertiert den Anfang des JSON Dokuments, sodass der Wrapper von außen unsichtbar ist.
+    /// </summary>
+    /// <param name="json">Array an Objekten in einem JSON String</param>
+    /// <returns>Array an Objekten aus dem übergebenen String</returns>
     public static T[] FromJson(string json)
     {
         int index = json.IndexOf('[');
         json = json.Remove(0, index);
         json = "{ \"array\":" + json;
-        json = ToLowerCase(json, "namespace", "space");
+        //json = ToLowerCase(json, "namespace", "space");
         Debug.Log(json);
         JsonHelper<T> wrapper = JsonUtility.FromJson<JsonHelper<T>>(json);
         return wrapper.array;
     }
-
-    public static string ToJson(T[] array)
-    {
-        JsonHelper<T> wrapper = new JsonHelper<T>();
-        wrapper.array = array;
-        return JsonUtility.ToJson(wrapper);
-    }
-
-    public static string ToJson(T[] array, bool prettyPrint)
-    {
-        JsonHelper<T> wrapper = new JsonHelper<T>();
-        wrapper.array = array;
-        return JsonUtility.ToJson(wrapper, prettyPrint);
-    }
-
 }
