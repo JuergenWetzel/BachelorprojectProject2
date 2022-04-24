@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Komponente bei jedem Koordinatensystem
+/// Im Editor kann für den Pfeil ausgewählt werden, welche Pfeile in welcher Farbe angezeigt werden
+/// </summary>
 public class Arrows : MonoBehaviour
 {
     private GameObject[] arrows;
@@ -33,6 +37,11 @@ public class Arrows : MonoBehaviour
         arrows = SortArrows(pfeile);
     }
 
+    /// <summary>
+    /// Übergibt alle (möglichen) Pfeilspitzen eines Koordinatensystems
+    /// </summary>
+    /// <param name="pfeile"></param>
+    /// <returns></returns>
     private GameObject[] SortArrows(Pfeil[] pfeile)
     {
         GameObject[] sortiert = new GameObject[pfeile.Length];
@@ -65,14 +74,9 @@ public class Arrows : MonoBehaviour
         return sortiert;
     }
 
+
     private void Start()
     {
-        string deb = "";
-        foreach (GameObject arrow in arrows)
-        {
-            deb += arrow.name;
-        }
-        Debug.Log(deb);
         if (Kontrollzahl(roterPfeil) + Kontrollzahl(gruenerPfeil) + Kontrollzahl(blauerPfeil) != 111) 
         {
             throw new MissingReferenceException("Pfeile sind ungültig angeornet");
@@ -87,6 +91,10 @@ public class Arrows : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Färbt die Pfeile in der gewünschten Farbe
+    /// </summary>
+    /// <param name="index">Index des Pfeils im </param>
     private void PfeileMarkieren(int index)
     {
         Renderer[] renderers = arrows[index].GetComponentsInChildren<Renderer>();
@@ -115,6 +123,13 @@ public class Arrows : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Kontrolliert, dass nur 3 Pfeilspitzen sichtbar sind
+    /// 
+    /// Wenn 2 in die gleiche / entgegengesetzte Richtung zeigen kommt ein Fehler
+    /// </summary>
+    /// <param name="pfeil"></param>
+    /// <returns></returns>
     private int Kontrollzahl(Orientierung pfeil)
     {
         switch (pfeil)
@@ -136,6 +151,12 @@ public class Arrows : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Ordnet einer Position eine Farbe zu
+    /// Für die Farbe ist die Position bekannt
+    /// </summary>
+    /// <param name="pfeil">Richtung der Pfeilspitze</param>
+    /// <param name="farbe">Farbe die zugeordnet wird</param>
     private void FarbeZuweisen(Orientierung pfeil, Farbe farbe)
     {
         switch (pfeil)

@@ -14,7 +14,10 @@ public class Trajektorie : MonoBehaviour
         time = 0;
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Alle 0,4 Sekunden wird ein Punkt an allen Joints erstellt.
+    /// Wird nach 5 Sekunden automatisch wieder gelöscht
+    /// </summary>
     void Update()       
     {
         time += Time.deltaTime;

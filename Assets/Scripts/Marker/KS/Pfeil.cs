@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Markiert eine Pfeilspitze
+/// </summary>
 public class Pfeil : MonoBehaviour
 {
     private bool arrow = true;

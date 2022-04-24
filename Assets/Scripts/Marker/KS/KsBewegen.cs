@@ -9,11 +9,14 @@ public class KsBewegen : MonoBehaviour
 
     public UrdfJoint Joint { get => joint; set => joint = value; }
 
+    /// <summary>
+    /// Positioniert das Koordinatensystem 1m vor dem Gelenk in Richtung der Kamera
+    /// </summary>
+    /// <returns></returns>
     private Vector3 Position()
     {
         Vector3 pos = joint.transform.position;
         Vector3 camDirection = joint.transform.position - Datas.Cam.transform.position;
-
         return pos - camDirection.normalized;
     }
 
