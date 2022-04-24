@@ -44,7 +44,7 @@ public class Datas : MonoBehaviour
     private static float camSpeed;
 
     private static string jsonString;
-    private static string path;
+    //private static string path;
 
     private void Awake()
     {
@@ -87,7 +87,7 @@ public class Datas : MonoBehaviour
     /// <summary>
     /// Pfad zur Anlagenbeschreibung
     /// </summary>
-    public static string Path { get => path; set => path = value; }
+    //public static string Path { get => path; set => path = value; }
     /// <summary>
     /// Name des fokussierten Roboters
     /// </summary>

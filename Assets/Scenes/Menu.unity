@@ -989,9 +989,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1484824448}
-        m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
-        m_MethodName: OnSimulationStarten
+      - m_Target: {fileID: 1484824446}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: OnSimulationLaden
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1298,7 +1298,6 @@ GameObject:
   - component: {fileID: 1484824445}
   - component: {fileID: 1484824447}
   - component: {fileID: 1484824446}
-  - component: {fileID: 1484824448}
   m_Layer: 5
   m_Name: JsonPath
   m_TagString: Untagged
@@ -1336,9 +1335,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1484824444}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18ef3398a4b9af048b2c1819dad1ea8f, type: 3}
+  m_Script: {fileID: 11500000, guid: 4190ae196962a8d4f83028d8fa1520dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  missingJson: {fileID: 1915434092}
   inputField: {fileID: 1858936586}
 --- !u!114 &1484824447
 MonoBehaviour:
@@ -1366,19 +1366,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &1484824448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1484824444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bb06a0e6e3aa8346ac4cb6fef573b3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  missingJson: {fileID: 1915434092}
 --- !u!1 &1516384065
 GameObject:
   m_ObjectHideFlags: 0
@@ -1637,19 +1624,7 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1484824448}
-        m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
-        m_MethodName: SetPath
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
@@ -1759,7 +1734,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -80}
-  m_SizeDelta: {x: 400, y: 50}
+  m_SizeDelta: {x: 800, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1915434092
 MonoBehaviour:

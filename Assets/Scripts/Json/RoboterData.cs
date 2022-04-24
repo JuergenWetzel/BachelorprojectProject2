@@ -56,9 +56,12 @@ public class RoboterData
     /// </summary>
     private void ControlNamespace()
     {
-        if (space.IndexOf('/') != 0)
+        if (space.Length > 0)
         {
-            space = "/" + space;
+            if (space.IndexOf('/') != 0)
+            {
+                space = "/" + space;
+            }
         }
     }
 
@@ -135,7 +138,7 @@ public class RoboterData
     /// <summary>
     /// Erstellt den Roboter entsprechend seinem Typ
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Spawned Robot</returns>
     public GameObject Spawn()
     {
         switch (type)
@@ -151,7 +154,7 @@ public class RoboterData
             case "tom":
                 return GameObject.Instantiate(Datas.RobotPrefabs[4]);
             default:
-                throw new MissingReferenceException("ungültiger Type");
+                throw new MissingReferenceException("ungültiger Type: " + type);
         }
     }
 }

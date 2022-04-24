@@ -23,9 +23,8 @@ public class SaveSettings : MonoBehaviour
         }
         Datas.ShowKs = show;
         Datas.ShowTraj = show;
-        Roboter.SetCamSpeed();
+        SetCamSpeed();
         GameObject.Find("ScToggle").GetComponent<Scroll>().Init();
-        //OnBuSaveSettings();
     }
 
     /// <summary>
@@ -34,9 +33,13 @@ public class SaveSettings : MonoBehaviour
     public void OnBuSaveSettings()
     {
         SetCamFocus();
-        Roboter.SetCamSpeed();
+        SaveSettings.SetCamSpeed();
         SetVisualisierung<Trajektorie>(Datas.GroupToShowTraj);
         SetVisualisierung<KsEditMode>(Datas.GroupToShowKs);
+    }
+    private static void SetCamSpeed()
+    {
+        Datas.CamSpeed = 10;
     }
 
     /// <summary>

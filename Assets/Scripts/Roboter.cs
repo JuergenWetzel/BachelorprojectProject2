@@ -24,8 +24,4 @@ public static class Roboter
         return joints.ToArray();
     }
 
-    public static void SetCamSpeed()
-    {
-        Datas.CamSpeed = 10;
-    }
 }

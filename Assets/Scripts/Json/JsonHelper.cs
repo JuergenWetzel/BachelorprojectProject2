@@ -49,11 +49,8 @@ public class JsonHelper<T>
     /// <returns>Array an Objekten aus dem übergebenen String</returns>
     public static T[] FromJson(string json)
     {
-        int index = json.IndexOf('[');
-        json = json.Remove(0, index);
+        json = json.Remove(0, json.IndexOf('['));
         json = "{ \"array\":" + json;
-        //json = ToLowerCase(json, "namespace", "space");
-        Debug.Log(json);
         JsonHelper<T> wrapper = JsonUtility.FromJson<JsonHelper<T>>(json);
         return wrapper.array;
     }
