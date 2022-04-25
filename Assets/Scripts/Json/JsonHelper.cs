@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using UnityEngine;
 
 /// <summary>
 /// Hilfsklasse, um anstatt eines Gameobject ein Array aus dem json String auszulesen

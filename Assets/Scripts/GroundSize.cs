@@ -1,6 +1,4 @@
 using RosSharp.Urdf;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GroundSize : MonoBehaviour
